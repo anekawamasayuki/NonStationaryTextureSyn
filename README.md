@@ -18,6 +18,7 @@ This is my newer version code adapted from the official one [Non-stationary text
 
 ### What's New?
 * The code can be run on Windows 10, Python 3.7.9, Pytorch 1.6.0, CUDA 10.1.
+* Fixed HTML stuff(not used)
 
 ### Run
 #### Download VGG

@@ -57,11 +57,11 @@ for epoch in range(opt.epoch_count, opt.niter + opt.niter_decay + 1):
             model.save('latest')
 
     if epoch % opt.save_epoch_freq == 0:
-        print('saving the model at the end of epoch %d, iters %d' %
+        print('Testing and saving the model at the end of epoch %d, iters %d' %
               (epoch, total_steps))
         model.save('latest')
         model.save(epoch)
-        test_func(opt, webpage, epoch=str(epoch))
+        test_func(opt, epoch=str(epoch))
 
     # print('End of epoch %d / %d \t Time Taken: %d sec' %
     #       (epoch, opt.niter + opt.niter_decay, time.time() - epoch_start_time))
