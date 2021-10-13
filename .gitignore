@@ -49,3 +49,4 @@ checkpoints/*
 .idea
 .idea/*
 */.idea/*
+models/vgg_conv.pth
