@@ -57,6 +57,8 @@ def test_func(opt_train, epoch='latest'):
         name = os.path.splitext(short_path)[0]
         for label, image_numpy in visuals.items():
             image_name = '%s_%s_%s.png' % (name, label, epoch)
+            if 'real' in image_name and int(epoch) > opt.epoch_count + opt.save_epoch_freq:
+                continue
             save_path = os.path.join(image_dir, image_name)
             print(save_path)
             util.save_image(image_numpy[0].astype(np.uint8), save_path)

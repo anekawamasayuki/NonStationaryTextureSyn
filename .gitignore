@@ -50,3 +50,7 @@ checkpoints/*
 .idea/*
 */.idea/*
 models/vgg_conv.pth
+
+
+.venv/
+datasets/
