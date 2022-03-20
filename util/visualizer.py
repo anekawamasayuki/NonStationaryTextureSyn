@@ -88,7 +88,7 @@ class Visualizer():
                     if label == 'real_A':
                     # img = img.resize((2*w, 2*h), Image.BICUBIC)
                     # print(start_point)
-                        newIm.paste(img, (A_start_point[col][0], A_start_point[col][1] + col * self.fineSize))
+                        newIm.paste(img, (A_start_point[0][0][col], A_start_point[0][1][col] + col * self.fineSize))
                     else:
                         newIm.paste(img, (w * i, col * self.fineSize))
                 # util.save_image(image_numpy, img_path)

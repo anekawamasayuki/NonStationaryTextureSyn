@@ -2,11 +2,15 @@ import os.path
 import torchvision.transforms as transforms
 from data.base_dataset import BaseDataset, get_transform, get_half_transform
 from data.image_folder import make_dataset
-from PIL import Image
+from PIL import Image, ImageFile
 import numpy as np
 import PIL
 from pdb import set_trace as st
 import random
+
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+
 
 class HalfDataset(BaseDataset):
     def initialize(self, opt):
