@@ -53,3 +53,4 @@ models/vgg_conv.pth
 
 .venv/
 .vscode/
+datasets/
