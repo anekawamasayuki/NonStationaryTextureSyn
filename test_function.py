@@ -28,7 +28,7 @@ def test_func(opt_train, epoch='latest'):
     opt.which_epoch = epoch
     opt.how_many = 50
     opt.phase = 'test'
-    opt.resize_or_crop == 'resize_and_center_crop'
+    opt.resize_or_crop = 'resize_and_center_crop'
 
     data_loader = CreateDataLoader(opt)
     dataset = data_loader.load_data()
