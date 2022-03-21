@@ -1,12 +1,9 @@
-import time
+import torch
 import os
-from options.test_options import TestOptions
 from data.data_loader import CreateDataLoader
 from models.models import create_model
 from util.visualizer import Visualizer
-from util import html
 import copy
-from PIL import Image
 import numpy as np
 import ntpath
 from util import util
@@ -14,6 +11,7 @@ from util import util
 
 # This function is used to testing during training. Results are stored in the opt.results_dir.
 # We do not need to run test script again.
+@torch.no_grad()
 def test_func(opt_train, epoch='latest'):
     opt = copy.deepcopy(opt_train)
     print(opt)
@@ -24,13 +22,13 @@ def test_func(opt_train, epoch='latest'):
     opt.batchSize = 1  # test code only supports batchSize = 1
     opt.serial_batches = True  # no shuffle
     opt.no_flip = True  # no flip
-    opt.dataroot = opt.dataroot + '/test'
-    opt.model = 'test'
-    opt.dataset_mode = 'single'
+    # opt.dataroot = opt.dataroot + '/test'
+    # opt.model = 'test'
+    # opt.dataset_mode = 'single'
     opt.which_epoch = epoch
     opt.how_many = 50
     opt.phase = 'test'
-    # opt.name = name
+    opt.resize_or_crop == 'resize_and_center_crop'
 
     data_loader = CreateDataLoader(opt)
     dataset = data_loader.load_data()
@@ -46,7 +44,7 @@ def test_func(opt_train, epoch='latest'):
             break
         model.set_input(data)
         model.test()
-        visuals = model.get_current_visuals()
+        visuals, _ = model.get_current_visuals()
         img_path = model.get_image_paths()
         print('process image... %s' % img_path)
 
@@ -57,7 +55,7 @@ def test_func(opt_train, epoch='latest'):
         name = os.path.splitext(short_path)[0]
         for label, image_numpy in visuals.items():
             image_name = '%s_%s_%s.png' % (name, label, epoch)
-            if 'real' in image_name and int(epoch) > opt.epoch_count + opt.save_epoch_freq:
+            if label in ['real_A', 'real_B'] and int(epoch) > opt.epoch_count + opt.save_epoch_freq:
                 continue
             save_path = os.path.join(image_dir, image_name)
             print(save_path)

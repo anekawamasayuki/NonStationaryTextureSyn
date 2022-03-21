@@ -1,10 +1,10 @@
-gsudo .\.venv\Scripts\python train.py `
+python train.py `
 	--dataroot .\datasets\all  `
 	--phase train `
-	--fineSize 128 `
-	--name all_2 `
+	--fineSize 256 `
+	--name half_style_14x14 `
 	--use_style `
-	<# --no_flip #>`
+	--no_flip `
 	--no_lsgan `
 	--padding_type replicate `
 	--model half_style `
@@ -16,8 +16,12 @@ gsudo .\.venv\Scripts\python train.py `
 	--dataset_mode half_crop `
 	--norm batch `
 	--pool_size 0 `
-	--resize_or_crop no `
-	--niter_decay 50 `
-	--niter 50 `
+	--resize_or_crop resize_and_random_crop `
+	--niter_decay 50000 `
+	--niter 50000 `
 	--save_epoch_freq 10 `
-	--batchSize 8
+	--batchSize 64 `
+	--continue_train `
+	--epoch_count 34001 `
+	--which_epoch 34000 `
+	--nThreads 0

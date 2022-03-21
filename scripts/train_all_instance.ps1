@@ -1,0 +1,28 @@
+# ipython --pdb --debug train.py -- 			`
+python train.py 						`
+	--batchSize 		32 					`
+	--continue_train						`
+	--dataroot 			.\datasets\all  	`
+	--dataset_mode 		half_crop 			`
+	--epoch_count 		141 				`
+	--fineSize 			224 				`
+	--lambda_A 			100 				`
+	--loadSize 			256 				`
+	--model 			half_style 			`
+	--n_layers_D 		4 					`
+	--name 				all_instance 		`
+	--niter 			50000 				`
+	--niter_decay 		50000 				`
+	--no_lsgan 								`
+	--norm 				batch 				`
+	--nThreads 			0 					`
+	--padding_type 		replicate 			`
+	--phase 			train				`
+	--pool_size 		0 					`
+	--resize_or_crop 	resize_and_random_crop				`
+	--save_epoch_freq 	20 				`
+	--use_style 							`
+	--which_direction 	AtoB 				`
+	--which_epoch 		140				`
+	--which_model_netD 	n_layers 			`
+	--which_model_netG 	resnet_2x_6blocks 	`

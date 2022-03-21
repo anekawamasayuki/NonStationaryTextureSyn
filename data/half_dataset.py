@@ -1,12 +1,10 @@
 import os.path
-import torchvision.transforms as transforms
 from data.base_dataset import BaseDataset, get_transform, get_half_transform
 from data.image_folder import make_dataset
 from PIL import Image, ImageFile
-import numpy as np
-import PIL
 from pdb import set_trace as st
 import random
+from torchvision.transforms.functional import crop
 
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
@@ -26,30 +24,29 @@ class HalfDataset(BaseDataset):
     def __getitem__(self, index):
         path = self.paths[index % self.size]
         B_img = Image.open(path).convert('RGB')
-        if self.opt.isTrain and not self.opt.no_flip:
-            if random.random() > 0.5:
-                B_img = B_img.transpose(Image.FLIP_LEFT_RIGHT)
-            else:
-                B_img = B_img
                 
-        w, h = B_img.size
-        rw = random.randint(0, w - self.fineSize)
-        rh = random.randint(0, h - self.fineSize)
-        # print(rw, rh)
-        B_img = B_img.crop((rw, rh, rw + self.fineSize, rh + self.fineSize))
+        B_tensor = self.transform(B_img)
+        # w, h = B_img.size
+        # rw = random.randint(0, w - self.fineSize)
+        # rh = random.randint(0, h - self.fineSize)
+        # # print(rw, rh)
+        # B_img = B_img.crop((rw, rh, rw + self.fineSize, rh + self.fineSize))
 
-        w, h = B_img.size
-        rw = random.randint(0, int(w/2))
-        rh = random.randint(0, int(h/2))
+        # _, w, h = B_img.size()
+        # rw = random.randint(0, int(w/2))
+        # rh = random.randint(0, int(h/2))
 
-        A_img = B_img.crop((rw, rh, int(rw + w/2), int(rh + h/2)))
+        div_by_4 = self.fineSize // 4
+        div_by_2 = self.fineSize // 2
 
-        A_img = self.transform(A_img)
-        B_img = self.transform(B_img)
+        A_tensor = crop(B_tensor, div_by_4, div_by_4, div_by_2, div_by_2)
 
-        return {'A': A_img, 'B': B_img,
+        # A_img = self.transform(A_img)
+        # B_img = self.transform(B_img)
+
+        return {'A': A_tensor, 'B': B_tensor,
                 'A_paths': path, 'B_paths': path,
-                'A_start_point':[(rw, rh)]}
+                'A_start_point':[(div_by_4, div_by_4)]}
 
     def __len__(self):
         return self.size

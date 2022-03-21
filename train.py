@@ -27,7 +27,7 @@ for epoch in range(opt.epoch_count, opt.niter + opt.niter_decay + 1):
     epoch_start_time = time.time()
     epoch_iter = 0
     for i, data in enumerate(dataset):
-        if epoch == 1:
+        if epoch == opt.epoch_count:
             save_data = data
         else:
             save_data = save_data
